@@ -3,7 +3,7 @@ These are a few `jQuery` enhacements to [Plataformatec's](http://twitter.com/#!/
 
 * This version just updates the current month's days, instead of showing unconditionally 31 days per month.
 
-* Future version will implement a simple event model to be enable widget communication, e.g.: If you are rendering a calendar somewhere else in the document and want to reflect date select changes in there.
+* Future version will implement a simple event model to be enable widget communication, e.g.: If you are rendering a calendar somewhere else in the document and want to reflect date select changes in there. The plugin will be implemented as a jQuery UI widget.
 
 * Source code is implemented in `Coffeescript`. The directory structure follows Barista default conventions: all `*.coffee` scripts under `RAILS_ROOT/app/coffeescripts`
 
@@ -29,6 +29,7 @@ Done:
 
 ## Usage
 Let's say that your are rendering a @simple_form@ date input.
+
 ```haml
   -#...
   = form.input :check_in, :as => :date
