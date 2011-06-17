@@ -14,9 +14,9 @@ simpleDate = (options) ->
 
   updateDate = (evt) =>
     $select = $(evt.srcElement)
-    @date.setFullYear((parseInt $select.val())) if $select.hasClass('year')
-    @date.setMonth((parseInt $select.val())-1) if $select.hasClass('month')
-    @date.setDate((parseInt $select.val())) if $select.hasClass('day')
+    @date.setFullYear((+$select.val())) if $select.hasClass('year')
+    @date.setMonth((+$select.val())-1) if $select.hasClass('month')
+    @date.setDate((+$select.val())) if $select.hasClass('day')
 
     options = $(@daySelect).find('option')
 

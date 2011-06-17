@@ -14,17 +14,24 @@ These are a few `jQuery` enhacements to [Plataformatec's](http://twitter.com/#!/
 $ git clone https://github.com/vicentereig/simple_date_js.git
 ```
 ## Building the code
+If you want the generated Javascript to be minified donwload http://closure-compiler.googlecode.com/files/compiler-latest.zip
+
 ```bash
 vicente@simba:~/Workspaces/simple_date_js $ sh build.sh
 Building dombrew.js...
 Building simple_date.js...
+Building core-ext/date.js...
 Building dombrew.min.js...
 Building simple_date.min.js...
+Building date.min.js...
 Done:
-5.1K	dombrew.js
-2.5K	dombrew.min.js
-2.6K	simple_date.js
-1.5K	simple_date.min.js
+5.1K  dombrew.js
+2.4K  dombrew.min.js
+2.5K  simple_date.js
+1.5K  simple_date.min.js
+193   date.js
+171   date.min.js
+
 ```
 
 ## Usage

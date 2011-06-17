@@ -25,13 +25,13 @@
       var $select, attrs, day, dayOpts;
       $select = $(evt.srcElement);
       if ($select.hasClass('year')) {
-        this.date.setFullYear(parseInt($select.val()));
+        this.date.setFullYear(+$select.val());
       }
       if ($select.hasClass('month')) {
-        this.date.setMonth((parseInt($select.val())) - 1);
+        this.date.setMonth((+$select.val()) - 1);
       }
       if ($select.hasClass('day')) {
-        this.date.setDate(parseInt($select.val()));
+        this.date.setDate(+$select.val());
       }
       options = $(this.daySelect).find('option');
       if (parseInt(options.last().val()) !== this.date.lastDayInMonth()) {
