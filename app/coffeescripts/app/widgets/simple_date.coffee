@@ -1,18 +1,33 @@
 $  = jQuery
 $b = DOMBrew
+#### a jQuery plugin to enhace simple_form's date selector
+#
+# And all that jazz. :-)
+# TODO: Docs in progress.
+#'
+class SimpleDate
+  @defaults = {}
 
-$.fn.simpleDate = (options) ->
-  @each -> simpleDate.call(@, options)
+  constructor: ($container, options) ->
+    @options = $.extends @defaults, options
+    @selects = [@yearSelect, @monthSelect, @daySelect] = $(this).find('select')
+    @classes = ['year', 'month', 'day']
+    @selects.each -> $(this).addClass classes.shift()
 
-simpleDate = (options) ->
-  selectedDate = () => @date
+    @initializeDate()
+    @selects.each -> $(this).change updateDate
+    @selects.each -> $(this).trigger('change')
 
-  initializeDate = () =>
-    selects.map =>
+  # console.log "Loaded date: ", @date
+
+  selectedDate: () -> @date
+
+  initializeDate: () ->
+    @selects.map =>
       @date = $(this).find('option[selected=selected]').map -> parseInt $(this).val()
       @date = new Date(@date[0], @date[1]-1, @date[2])
-
-  updateDate = (evt) =>
+  # It's sort of convention to preffix jQuery variables with a $
+  updateDate: (evt) ->
     $select = $(evt.srcElement)
     @date.setFullYear((+$select.val())) if $select.hasClass('year')
     @date.setMonth((+$select.val())-1) if $select.hasClass('month')
@@ -32,13 +47,6 @@ simpleDate = (options) ->
     $select.one 'blur', (evt) ->
       console.log "Not yet implemented! :-)"
 
-  selects = [@yearSelect, @monthSelect, @daySelect] = $(this).find('select')
-  classes = ['year', 'month', 'day']
-  selects.each -> $(this).addClass classes.shift()
-  initializeDate()
-
-  selects.each -> $(this).change updateDate
-  selects.each -> $(this).trigger('change')
-
-  # console.log "Loaded date: ", @date
+$.fn.simpleDate = (options) ->
+  @each -> new SimpleDate($(@), options)
 

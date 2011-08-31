@@ -1,28 +1,39 @@
 (function() {
-  var $, $b, simpleDate;
+  var $, $b, SimpleDate;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   $ = jQuery;
   $b = DOMBrew;
-  $.fn.simpleDate = function(options) {
-    return this.each(function() {
-      return simpleDate.call(this, options);
-    });
-  };
-  simpleDate = function(options) {
-    var classes, initializeDate, selectedDate, selects, updateDate, _ref;
-    selectedDate = __bind(function() {
+  SimpleDate = (function() {
+    SimpleDate.defaults = {};
+    function SimpleDate($container, options) {
+      var _ref;
+      this.options = $["extends"](this.defaults, options);
+      this.selects = (_ref = $(this).find('select'), this.yearSelect = _ref[0], this.monthSelect = _ref[1], this.daySelect = _ref[2], _ref);
+      this.classes = ['year', 'month', 'day'];
+      this.selects.each(function() {
+        return $(this).addClass(classes.shift());
+      });
+      this.initializeDate();
+      this.selects.each(function() {
+        return $(this).change(updateDate);
+      });
+      this.selects.each(function() {
+        return $(this).trigger('change');
+      });
+    }
+    SimpleDate.prototype.selectedDate = function() {
       return this.date;
-    }, this);
-    initializeDate = __bind(function() {
-      return selects.map(__bind(function() {
+    };
+    SimpleDate.prototype.initializeDate = function() {
+      return this.selects.map(__bind(function() {
         this.date = $(this).find('option[selected=selected]').map(function() {
           return parseInt($(this).val());
         });
         return this.date = new Date(this.date[0], this.date[1] - 1, this.date[2]);
       }, this));
-    }, this);
-    updateDate = __bind(function(evt) {
-      var $select, attrs, day, dayOpts;
+    };
+    SimpleDate.prototype.updateDate = function(evt) {
+      var $select, attrs, day, dayOpts, options;
       $select = $(evt.srcElement);
       if ($select.hasClass('year')) {
         this.date.setFullYear(+$select.val());
@@ -55,18 +66,12 @@
       return $select.one('blur', function(evt) {
         return console.log("Not yet implemented! :-)");
       });
-    }, this);
-    selects = (_ref = $(this).find('select'), this.yearSelect = _ref[0], this.monthSelect = _ref[1], this.daySelect = _ref[2], _ref);
-    classes = ['year', 'month', 'day'];
-    selects.each(function() {
-      return $(this).addClass(classes.shift());
-    });
-    initializeDate();
-    selects.each(function() {
-      return $(this).change(updateDate);
-    });
-    return selects.each(function() {
-      return $(this).trigger('change');
+    };
+    return SimpleDate;
+  })();
+  $.fn.simpleDate = function(options) {
+    return this.each(function() {
+      return new SimpleDate($(this), options);
     });
   };
 }).call(this);
